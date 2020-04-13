@@ -517,7 +517,7 @@ class ThreeViewer extends React.PureComponent<Props, State> {
         <div ref={element => (this.guiContainer = element)} className={containerClass} />
         <div
           style={{ opacity: showViewer ? 1 : 0 }}
-          className="three-viewer file-render__viewer"
+          className="three-viewer file-viewer"
           ref={viewer => (this.viewer = viewer)}
         />
       </React.Fragment>

@@ -283,7 +283,7 @@ function App(props: Props) {
         <React.Fragment>
           <Router />
           <ModalRouter />
-          <FileRenderFloating pageUri={uri} />
+          <FileRenderFloating />
           {isEnhancedLayout && <Yrbl className="yrbl--enhanced" />}
 
           {/* @if TARGET='app' */}
