@@ -144,10 +144,6 @@
 }
 
 .content__viewer--floating {
-  .file-viewer__overlay {
-    padding: var(--spacing-medium);
-  }
-
   .file-viewer__overlay-title,
   .file-viewer__overlay-secondary {
     overflow: hidden;
@@ -157,10 +153,6 @@
   }
 }
 @media (max-width: $breakpoint-small) {
-  .file-viewer__overlay {
-    padding: var(--spacing-medium);
-  }
-
   .file-viewer__overlay-title,
   .file-viewer__overlay-secondary {
     overflow: hidden;
@@ -271,15 +263,19 @@
   }
 }
 
+.video-js-parent {
+  height: 100%;
+  width: 100%;
+}
+
+// By default no video js play button
+.vjs-big-play-button {
+  display: none;
+}
+
 .video-js {
   height: 100%;
   width: 100%;
-
-  // Removing the play button because we have autoplay turned on
-  // These are classes added by video.js
-  .vjs-big-play-button {
-    display: none;
-  }
 
   .vjs-modal-dialog .vjs-modal-dialog-content {
     position: relative;
@@ -301,11 +297,8 @@
   }
 }
 
-.vjs-paused .vjs-big-play-button,
-.vjs-paused.vjs-has-started .vjs-big-play-button {
-  @media (max-width: $breakpoint-small) {
-    display: block;
-  }
+.file-viewer--ended-embed .vjs-big-play-button {
+  display: none;
 }
 
 .file-render {
