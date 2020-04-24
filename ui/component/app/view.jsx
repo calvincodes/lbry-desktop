@@ -21,7 +21,7 @@ import OpenInAppLink from 'lbrytv/component/openInAppLink';
 import YoutubeWelcome from 'lbrytv/component/youtubeReferralWelcome';
 import NagDegradedPerformance from 'lbrytv/component/nag-degraded-performance';
 import NagDataCollection from 'lbrytv/component/nag-data-collection';
-// @endif
+
 import {
   useDegradedPerformance,
   STATUS_OK,
@@ -29,6 +29,7 @@ import {
   STATUS_FAILING,
   STATUS_DOWN,
 } from 'lbrytv/effects/use-degraded-performance';
+// @endif
 export const MAIN_WRAPPER_CLASS = 'main-wrapper';
 // @if TARGET='app'
 export const IS_MAC = process.platform === 'darwin';
