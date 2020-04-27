@@ -156,7 +156,7 @@ const Button = forwardRef<any, {}>((props: Props, ref: any) => {
     return (
       <NavLink
         exact
-        onClick={(e) => {
+        onClick={e => {
           e.stopPropagation();
         }}
         to={`/$/${PAGES.AUTH}?redirect=${pathname}`}
@@ -176,7 +176,7 @@ const Button = forwardRef<any, {}>((props: Props, ref: any) => {
       to={path}
       title={title}
       disabled={disabled}
-      onClick={(e) => {
+      onClick={e => {
         e.stopPropagation();
         if (onClick) {
           onClick();
@@ -194,7 +194,7 @@ const Button = forwardRef<any, {}>((props: Props, ref: any) => {
       title={title}
       aria-label={description || label || title}
       className={combinedClassName}
-      onClick={(e) => {
+      onClick={e => {
         if (onClick) {
           e.stopPropagation();
           onClick(e);

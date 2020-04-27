@@ -1,4 +1,5 @@
 // @flow
+import * as ACTIONS from 'constants/action_types';
 import * as SETTINGS from 'constants/settings';
 import * as NOTIFICATION_TYPES from 'constants/subscriptions';
 import { PAGE_SIZE } from 'constants/claim';
@@ -11,7 +12,7 @@ import { push } from 'connected-react-router';
 import { setSubscriptionLatest, doUpdateUnreadSubscriptions } from 'redux/actions/subscriptions';
 import { makeSelectUnreadByChannel } from 'redux/selectors/subscriptions';
 import {
-  ACTIONS,
+  ACTIONS as LBRY_REDUX_ACTIONS,
   MATURE_TAGS,
   Lbry,
   Lbryapi,
@@ -27,6 +28,7 @@ import {
 import { makeSelectCostInfoForUri } from 'lbryinc';
 import { makeSelectClientSetting, selectosNotificationsEnabled, selectDaemonSettings } from 'redux/selectors/settings';
 import { formatLbryUrlForWeb } from 'util/url';
+import { selectFloatingUri } from 'redux/selectors/content';
 
 const DOWNLOAD_POLL_INTERVAL = 250;
 
@@ -137,6 +139,28 @@ export function doSetPlayingUri(uri: ?string) {
   };
 }
 
+export function doSetFloatingUri(uri: ?string) {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: ACTIONS.SET_FLOATING_URI,
+      data: { uri },
+    });
+  };
+}
+
+export function doCloseFloatingPlayer() {
+  return (dispatch: Dispatch, getState: GetState) => {
+    const state = getState();
+    const floatingUri = selectFloatingUri(state);
+
+    if (floatingUri) {
+      dispatch(doSetFloatingUri(null));
+    } else {
+      dispatch(doSetPlayingUri(null));
+    }
+  };
+}
+
 export function doFetchClaimsByChannel(uri: string, page: number = 1, pageSize: number = PAGE_SIZE) {
   return (dispatch: Dispatch, getState: GetState) => {
     const state = getState();
@@ -154,7 +178,7 @@ export function doFetchClaimsByChannel(uri: string, page: number = 1, pageSize: 
     }
 
     dispatch({
-      type: ACTIONS.FETCH_CHANNEL_CLAIMS_STARTED,
+      type: LBRY_REDUX_ACTIONS.FETCH_CHANNEL_CLAIMS_STARTED,
       data: { uri, page },
     });
 
@@ -176,7 +200,7 @@ export function doFetchClaimsByChannel(uri: string, page: number = 1, pageSize: 
       }
 
       dispatch({
-        type: ACTIONS.FETCH_CHANNEL_CLAIMS_COMPLETED,
+        type: LBRY_REDUX_ACTIONS.FETCH_CHANNEL_CLAIMS_COMPLETED,
         data: {
           uri,
           claimsInChannel,
@@ -298,14 +322,5 @@ export function doClearContentHistoryUri(uri: string) {
 export function doClearContentHistoryAll() {
   return (dispatch: Dispatch) => {
     dispatch({ type: ACTIONS.CLEAR_CONTENT_HISTORY_ALL });
-  };
-}
-
-export function doSetHistoryPage(page: string) {
-  return (dispatch: Dispatch) => {
-    dispatch({
-      type: ACTIONS.SET_CONTENT_HISTORY_PAGE,
-      data: { page },
-    });
   };
 }
